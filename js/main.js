@@ -88,15 +88,26 @@ finalSubmit.addEventListener('click', () => {
 // --- Mobile Navigation Toggle ---
 const mobileToggle = document.querySelector('.mobile-toggle');
 const navLinks = document.querySelector('.nav-links');
+const navLinksItems = document.querySelectorAll('.nav-links li a');
 
 mobileToggle?.addEventListener('click', () => {
-    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-    navLinks.style.flexDirection = 'column';
-    navLinks.style.position = 'absolute';
-    navLinks.style.top = '100%';
-    navLinks.style.left = '0';
-    navLinks.style.width = '100%';
-    navLinks.style.backgroundColor = 'rgba(13, 13, 13, 0.95)';
-    navLinks.style.padding = '2rem';
-    navLinks.style.borderTop = '1px solid var(--glass-border)';
+    navLinks.classList.toggle('active');
+    // Change icon between bars and times
+    const icon = mobileToggle.querySelector('i');
+    if (icon) {
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
+    }
+});
+
+// Close menu when a link is clicked
+navLinksItems.forEach(item => {
+    item.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        const icon = mobileToggle.querySelector('i');
+        if (icon) {
+            icon.classList.add('fa-bars');
+            icon.classList.remove('fa-times');
+        }
+    });
 });
